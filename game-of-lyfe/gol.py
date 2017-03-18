@@ -12,6 +12,9 @@ class Grid:
     self.grid = g
 
   def Print(self):
+    """ Print simply prints the current state of the grid to stdout. \ 
+        Note that there is no locking, therefore Step and Print should \
+        only be called sequentially """
     out = ""
     for i in range(self.height):
       for j in range(self.width):
@@ -28,6 +31,7 @@ class Grid:
     self.apply_mask(x,y,herschel_mask)
 
   def apply_mask(self, x, y, mask):
+    """ a method intended for internal class use only """
     for i in range(len(mask)):
       for j in range(len(mask[0])):
         m = i+(x%self.height)
@@ -35,9 +39,13 @@ class Grid:
         self[m][n] = mask[i][j]   
 
   def __getitem__(self, item):
+    """ getitem to allow self to be indexed directly """
     return self.grid[item]
 
   def score(self, x, y):
+    """ given x and y coordinates, it returns the number of live neighbors \
+        and a bool to indicate if self[x][y] is alive. Intended for internal \
+        use only """
     scr=0
     isAlive=False
     for i in range(x-1,x+2):
@@ -51,6 +59,15 @@ class Grid:
     return scr, isAlive
 
   def Step(self):
+    """ Step updates the grid according to Conway's Game of Life Rules. \
+        1) Any live cell with fewer than two live neighbours dies, as if caused \
+           by underpopulation.\
+        2) Any live cell with two or three live neighbours lives on to the next \
+           generation.\
+        3) Any live cell with more than three live neighbours dies, as if by\ 
+           overpopulation.\
+        4) Any dead cell with exactly three live neighbours becomes a live cell, \
+           as if by reproduction. """
     ret = [numpy.zeros(self.width) for i in range(self.height)]
     for i in range(self.height):
       for j in range(self.width):
