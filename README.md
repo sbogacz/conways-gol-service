@@ -8,4 +8,8 @@ This folder contains a small cli implementation of Conway's Game of Life. It use
 	* `steps`: to configure the number of steps in the game of life evolution
 	* `glider`: takes two integer indices and sets up a glider starting at those indices
 	* `herschel`: functions like glider, but for the herschel exploder
- 
+
+Example Usage:
+```sh
+python main.py --width 40 --height 20 --herschel 5 5 --glider 10 10 --steps 0
+``` 

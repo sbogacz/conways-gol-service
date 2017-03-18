@@ -9,7 +9,7 @@ from time import sleep
 @click.option('--herschel', nargs=2, type=int, help="pass to get a herschel glider at index passed after the herschel flag")
 @click.option('--steps', default=15, help="set steps to specify how much the grid should evolve. ")
 
-def hello(width,height,glider,herschel,steps):
+def main(width,height,glider,herschel,steps):
   """Simple program that greets NAME for a total of COUNT times."""
   g = gol.Grid(width,height)
   if len(glider) > 0:
@@ -24,4 +24,4 @@ def hello(width,height,glider,herschel,steps):
     i += 1
 
 if __name__ == '__main__':
-    hello()
+    main()
